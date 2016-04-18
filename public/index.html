@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Fooscore</title>
+    <meta name="description" content="">
+
+    <!-- Use minimum-scale=1 to enable GPU rasterization -->
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1"
+    >
+
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <link rel="stylesheet" href="css/angular-chart.min.css">
+    <link rel="stylesheet" href="css/md-data-table.min.css">
+    <link rel="stylesheet" href="css/global.min.css">
+
+    <!--<link rel="stylesheet" type="text/css" href="main.css">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="js/vendors.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body data-ng-app="scoreApp" data-ng-controller="AppController as appCtrl">
+    <md-toolbar class="md-primary navbar">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="appCtrl.toggleMenu()">
+                <md-icon>menu</md-icon>
+            </md-button>
+            <h2>
+                <span>Fooscore</span>
+            </h2>
+            <span flex=""></span>
+            <md-button class="md-icon-button" aria-label="Ajouter" href="#/add" ng-show="appCtrl.ui.addButton">
+                <md-icon>add</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <section layout="row" flex>
+        <md-sidenav
+                class="sidenav-menu"
+                md-component-id="left"
+                md-whiteframe="4">
+            <md-content flex>
+                <md-list>
+                    <md-list-item ui-sref="dashboard" ng-click="appCtrl.closeMenu()">
+                        <md-icon>list</md-icon>
+                        <p>Matchs</p>
+                    </md-list-item>
+                    <md-list-item ui-sref="stats" ng-click="appCtrl.closeMenu()">
+                        <md-icon>insert_chart</md-icon>
+                        <p>Statistiques</p>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+
+        <div data-ui-view flex class="content-wrapper"></div>
+    </section>
+    <!-- This script adds the Roboto font to our project. For more detail go to this site:  http://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,500 -->
+    <script>
+        var WebFontConfig = {
+            google: { families: [ 'Roboto:400,300,500:latin' ] }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+</body>
+</html>

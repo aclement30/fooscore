@@ -1,0 +1,12 @@
+require('angular');
+require('angular-resource');
+require('angular-messages');
+require('angular-animate');
+require('angular-aria');
+require('angular-material');
+require('angular-ui-router');
+require('moment');
+require('moment/locale/fr');
+require('angular-moment');
+require('angular-material-data-table');
+require('angular-chart.js');

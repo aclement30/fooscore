@@ -1,0 +1,38 @@
+<div class="page-view match-list-page">
+    <div class="content-header">
+        <h3 class="md-headline">Matchs</h3>
+    </div>
+
+    <md-content>
+        <md-table-container>
+            <table md-table md-progress="ctrl.loadingPromise">
+                <thead md-head>
+                <tr md-row>
+                    <th md-column>Date</th>
+                    <th md-column><span>Équipe 1</span></th>
+                    <th md-column><span>Pointage</span></th>
+                    <th md-column><span>Équipe 2</span></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="match in ctrl.matches" ng-click="ctrl.showMatchDetail(match._id, $event)">
+                    <td md-cell>{{ match.date | amDateFormat: 'DD.MM.YYYY' }}</td>
+                    <td md-cell ng-class="{winner: match.team1.points > match.team2.points}">
+                        <span>{{ match.team1.players[0] }}</span>
+                        <span ng-if="match.team1.players[1]">&nbsp;&nbsp;+&nbsp;
+                        <span>{{ match.team1.players[1] }}</span></span>
+                    </td>
+                    <td md-cell class="md-title">{{ match.team1.points }} - {{ match.team2.points }}</td>
+                    <td md-cell ng-class="{winner: match.team2.points > match.team1.points}">
+                        <span>{{ match.team2.players[0] }}</span>
+                        <span ng-if="match.team2.players[1]">&nbsp;&nbsp;+&nbsp;
+                        <span>{{ match.team2.players[1] }}</span></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+        <md-table-pagination md-label="{of: 'sur'}" md-limit="ctrl.query.limit" md-page="ctrl.query.page" md-total="{{ctrl.totalCount}}" md-on-paginate="ctrl.getMatches"></md-table-pagination>
+    </md-content>
+</div>

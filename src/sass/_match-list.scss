@@ -1,0 +1,38 @@
+.match-list-page {
+  .winner {
+    color: $primary-color !important;
+    font-weight: bold;
+  }
+
+  tbody tr {
+    cursor: pointer;
+  }
+
+  .match-card {
+    md-card-header {
+      cursor: pointer;
+      padding: 5px 10px 7px 20px;
+
+      .points {
+        text-align: center;
+      }
+
+      md-card-actions {
+        margin: 0;
+
+        button {
+          margin-right: 0 !important;
+        }
+      }
+    }
+
+    .comments {
+      color: gray;
+    }
+
+    .balls {
+      text-align: right;
+      font-size: smaller;
+    }
+  }
+}

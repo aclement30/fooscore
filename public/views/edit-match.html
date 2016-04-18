@@ -1,0 +1,153 @@
+<div class="page-view form match-form-page">
+    <div class="content-header">
+        <h3 class="md-headline">{{ ctrl.editMode ? 'Modifier le match' : 'Nouveau match' }}</h3>
+    </div>
+
+    <form novalidate name="ctrl.matchForm" ng-submit="ctrl.matchForm.$valid && ctrl.save()" class="match-form">
+        <md-content layout-padding>
+            <h4 class="md-subhead">Équipe 1</h4>
+            <div class="team" layout="row">
+                <md-autocomplete required="true"
+                        flex="45"
+                        md-selected-item="ctrl.match.team1.players[0]"
+                        md-selected-item-change="ctrl.selectPlayer(ctrl.match.team1, 0, item)"
+                        md-items="item in ctrl.querySearch(ctrl.player1SearchText, ctrl.match.team1.players[0])"
+                        md-item-text="item"
+                        md-min-length="0"
+                        md-no-cache="true"
+                        md-floating-label="Attaquant"
+                        placeholder="Attaquant"
+                        md-search-text="ctrl.player1SearchText"
+                        md-input-name="team1Player1">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.player1SearchText" md-highlight-flags="^i">{{item}}</span>
+                    </md-item-template>
+                    <div ng-messages="ctrl.matchForm.team1Player1.$error" ng-hide="ctrl.matchForm.team1Player1.$untouched && !ctrl.matchForm.$submitted" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                        <div ng-message="uniqueTeamPlayer">Joueur déjà présent dans la même équipe</div>
+                        <div ng-message="uniquePlayer">Joueur déjà présent dans l'équipe adverse</div>
+                    </div>
+                </md-autocomplete>
+                <md-autocomplete ng-required="ctrl.match.team2.players[1]"
+                    flex="45" flex-offset="5"
+                    md-selected-item="ctrl.match.team1.players[1]"
+                    md-selected-item-change="ctrl.selectPlayer(ctrl.match.team1, 1, item)"
+                    md-items="item in ctrl.querySearch(ctrl.player2SearchText, ctrl.match.team1.players[1])"
+                    md-item-text="item"
+                    md-min-length="0"
+                    md-floating-label="Défenseur"
+                    placeholder="Défenseur"
+                    md-search-text="ctrl.player2SearchText"
+                    md-input-name="team1Player2">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.player2SearchText" md-highlight-flags="^i">{{item}}</span>
+                    </md-item-template>
+                    <div ng-messages="ctrl.matchForm.team1Player2.$error" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                        <div ng-message="uniqueTeamPlayer">Joueur déjà présent dans la même équipe</div>
+                        <div ng-message="uniquePlayer">Joueur déjà présent dans l'équipe adverse</div>
+                    </div>
+                </md-autocomplete>
+            </div>
+            <div class="points">
+                <md-input-container>
+                    <label>Pointage</label>
+                    <input ng-model="ctrl.match.team1.points" name="team1Points" required ng-pattern="/^[0-9]{1,2}$/">
+                    <div ng-messages="ctrl.matchForm.team1Points.$error" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                        <div ng-message="pattern">Pointage invalide</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-content>
+
+        <md-divider></md-divider>
+
+        <md-content layout-padding>
+            <h4 class="md-subhead">Équipe 2</h4>
+            <div class="team" layout="row">
+                <md-autocomplete required="true"
+                         flex="45"
+                         md-selected-item="ctrl.match.team2.players[0]"
+                         md-selected-item-change="ctrl.selectPlayer(ctrl.match.team2, 0, item)"
+                         md-items="item in ctrl.querySearch(ctrl.player3SearchText, ctrl.match.team2.players[0])"
+                         md-item-text="item"
+                         md-min-length="0"
+                         md-floating-label="Attaquant"
+                         placeholder="Attaquant"
+                         md-search-text="ctrl.player3SearchText"
+                         md-input-name="team2Player1">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.player3SearchText" md-highlight-flags="^i">{{item}}</span>
+                    </md-item-template>
+                    <div ng-messages="ctrl.matchForm.team2Player1.$error" ng-hide="ctrl.matchForm.team2Player1.$untouched && !ctrl.matchForm.$submitted" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                        <div ng-message="uniqueTeamPlayer">Joueur déjà présent dans la même équipe</div>
+                        <div ng-message="uniquePlayer">Joueur déjà présent dans l'équipe adverse</div>
+                    </div>
+                </md-autocomplete>
+                <md-autocomplete ng-required="ctrl.match.team1.players[1]"
+                         flex="45" flex-offset="5"
+                         md-selected-item="ctrl.match.team2.players[1]"
+                         md-selected-item-change="ctrl.selectPlayer(ctrl.match.team2, 1, item)"
+                         md-items="item in ctrl.querySearch(ctrl.player4SearchText, ctrl.match.team2.players[1])"
+                         md-item-text="item"
+                         md-min-length="0"
+                         md-floating-label="Défenseur"
+                         placeholder="Défenseur"
+                         md-search-text="ctrl.player4SearchText"
+                         md-input-name="team2Player2">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.player4SearchText" md-highlight-flags="^i">{{item}}</span>
+                    </md-item-template>
+                    <div ng-messages="ctrl.matchForm.team2Player2.$error" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                        <div ng-message="uniqueTeamPlayer">Joueur déjà présent dans la même équipe</div>
+                        <div ng-message="uniquePlayer">Joueur déjà présent dans l'équipe adverse</div>
+                    </div>
+                </md-autocomplete>
+            </div>
+            <div class="points">
+                <md-input-container>
+                    <label>Pointage</label>
+                    <input ng-model="ctrl.match.team2.points" name="team2Points" required ng-pattern="/^[0-9]{1,2}$/">
+                    <div ng-messages="ctrl.matchForm.team2Points.$error" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                        <div ng-message="pattern">Pointage invalide</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-content>
+
+        <md-divider></md-divider>
+
+        <md-content layout-padding layout="column">
+            <div layout="row" class="other-info">
+                <md-input-container flex="25">
+                    <label>Balles</label>
+                    <input ng-model="ctrl.match.balls" type="number" name="balls" required>
+                    <div ng-messages="ctrl.matchForm.balls.$error" ng-cloak>
+                        <div ng-message="required">Champ requis</div>
+                    </div>
+                </md-input-container>
+                <div class="date" flex-offset="10">
+                    <md-datepicker ng-model="ctrl.match.date" md-placeholder="Date" required></md-datepicker>
+                </div>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Commentaires</label>
+                    <textarea ng-model="ctrl.match.comments" rows="2"></textarea>
+                </md-input-container>
+            </div>
+        </md-content>
+
+        <md-content layout-padding layout="row">
+            <div class="submit">
+                <md-button type="submit" class="md-raised md-primary">{{ ctrl.editMode ? 'Enregistrer' : 'Ajouter' }}</md-button>
+                <md-button ng-click="ctrl.removeMatch()" ng-if="ctrl.editMode">Supprimer</md-button>
+            </div>
+        </md-content>
+        <md-progress-linear ng-show="ctrl.isSaving" md-mode="indeterminate"></md-progress-linear>
+    </form>
+</div>

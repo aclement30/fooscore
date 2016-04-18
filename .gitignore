@@ -1,0 +1,7 @@
+node_modules
+build
+.idea/*
+.DS_Store
+src/sass/temp/*
+npm-debug.log
+import-data/*

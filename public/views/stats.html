@@ -1,0 +1,58 @@
+<div class="page-view stats-page">
+    <div class="content-header" layout="row" layout-align="space-between center">
+        <h3 class="md-headline">Statistiques</h3>
+        <md-input-container>
+            <label>Période</label>
+            <md-select ng-model="ctrl.selectedPeriod" ng-change="ctrl.setSelectedPeriod(ctrl.selectedPeriod)">
+                <md-option ng-repeat="period in ctrl.periods" value="{{period.value}}">
+                    {{period.name}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <md-card ng-repeat="(periodKey, periodStats) in ctrl.periodStats">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-title">Parties {{periodKey == 'solo' ? "solo" : "2 x 2"}}</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-content class="empty-data" flex ng-show="periodStats.chartData.data.length == 0">
+            <p>Aucune donnée pour cette période</p>
+        </md-content>
+        <md-content layout="row" layout-align="start">
+
+            <md-content layout-padding flex="60" ng-show="periodStats.chartData.data.length > 0">
+                <canvas
+                        height="340"
+                        class="chart chart-line"
+                        chart-data="periodStats.chartData.data"
+                        chart-labels="periodStats.chartData.labels"
+                        chart-series="periodStats.chartData.series"
+                        chart-options="ctrl.chartOptions"
+                        chart-colours="periodStats.chartData.colors">
+                </canvas>
+            </md-content>
+            <md-table-container flex="40" ng-show="periodStats.chartData.data.length > 0">
+                <table md-table>
+                    <thead md-head>
+                    <tr md-row>
+                        <th md-column>&nbsp;</th>
+                        <th md-column><span>Joueur</span></th>
+                        <th md-column md-numeric><span>Parties jouées</span></th>
+                        <th md-column md-numeric>Parties gagnées</th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="playerData in periodStats.leaderboard | orderBy:'winPercent':true">
+                        <td md-cell><span class="player-ranking" ng-style="{'background-color': ctrl.playerColors[playerData.player]}">{{$index + 1}}</span></td>
+                        <td md-cell class="md-title">{{playerData.player}}</td>
+                        <td md-cell>{{playerData.played}}</td>
+                        <td md-cell>{{playerData.winPercent}} %</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-content>
+    </md-card>
+</div>

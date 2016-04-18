@@ -1,0 +1,42 @@
+.match-form-page {
+  h4 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  md-input-container {
+    margin-bottom: 0;
+  }
+
+  form > md-content {
+    > div {
+      padding: 0 8px;
+    }
+  }
+
+  .date {
+    margin-top: 15px;
+
+    .md-datepicker-input-container {
+      margin-left: 0px;
+    }
+  }
+
+  .other-info {
+    margin-top: 15px;
+  }
+
+  .submit {
+    padding: 10px 0;
+  }
+
+  /*.team {
+    h4 {
+      margin-bottom: 40px;
+    }
+  }
+
+  .points {
+    padding-top: 62px;
+  }*/
+}

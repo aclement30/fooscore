@@ -1,0 +1,36 @@
+.match-detail-modal {
+  max-width: 600px;
+
+  .team {
+    text-align: center;
+
+    .player {
+      margin-bottom: 10px;
+
+      > span {
+        display: block;
+
+        &:last-of-type {
+          color: gray;
+        }
+      }
+    }
+  }
+
+  .points {
+    text-align: center;
+  }
+
+  .comments {
+    .md-dialog-content {
+      padding: 14px 24px 20px;
+
+      .label {
+        color: silver;
+      }
+      .description {
+        margin: 0;
+      }
+    }
+  }
+}

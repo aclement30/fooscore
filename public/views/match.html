@@ -1,0 +1,59 @@
+<md-dialog aria-label="Match" ng-cloak class="match-detail-modal">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Détails du match - {{ ctrl.match.date | amDateFormat:'DD.MM.YYYY' }}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="ctrl.close()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="match" layout="row" layout-align="center stretch">
+                <div class="team" flex="40">
+                    <div class="player">
+                        <span class="md-subhead">{{ ctrl.match.team1.players[0] }}</span>
+                        <span class="md-caption">{{ ctrl.match.team1.players[1] ? 'Attaquant' : 'Joueur 1' }}</span>
+                    </div>
+
+                    <div class="player" ng-if="ctrl.match.team1.players[1]">
+                        <span class="md-subhead">{{ ctrl.match.team1.players[1] }}</span>
+                        <span class="md-caption">Défenseur</span>
+                    </div>
+                </div>
+                <div class="points md-title" flex="20" layout="row" layout-align="center center">
+                    <div>{{ ctrl.match.team1.points }} - {{ ctrl.match.team2.points }}</div>
+                </div>
+                <div class="team" flex="40">
+                    <div class="player">
+                        <span class="md-subhead">{{ ctrl.match.team2.players[0] }}</span>
+                        <span class="md-caption">{{ ctrl.match.team2.players[1] ? 'Attaquant' : 'Joueur 2' }}</span>
+                    </div>
+
+                    <div class="player" ng-if="ctrl.match.team2.players[1]">
+                        <span class="md-subhead">{{ ctrl.match.team2.players[1] }}</span>
+                        <span class="md-caption">Défenseur</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="ctrl.match.comments" class="comments">
+            <md-divider></md-divider>
+
+            <div class="md-dialog-content">
+                <span class="md-caption label">Commentaires</span>
+                <p class="md-body-1 description">{{ctrl.match.comments}}</p>
+            </div>
+        </div>
+
+        <md-divider></md-divider>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <md-button class="md-icon-button" ng-click="ctrl.editMatch(ctrl.match._id)">
+            <md-icon>edit</md-icon>
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

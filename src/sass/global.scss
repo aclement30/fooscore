@@ -1,0 +1,60 @@
+$primary-color: rgb(0,150,136);
+$background-color: #edecec;
+
+body {
+  background-color: $background-color;
+  color: #5e5e5e;
+  height: auto;
+}
+
+.navbar {
+  z-index: 50;
+}
+
+.content-wrapper {
+  .page-view {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+
+    .content-header {
+      padding: 0 15px;
+
+      md-input-container {
+        margin-bottom: 0;
+      }
+    }
+
+    &.form {
+      max-width: 600px;
+    }
+  }
+}
+
+md-autocomplete[md-floating-label] md-input-container {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+md-backdrop.md-sidenav-backdrop {
+  z-index: 40;
+}
+
+md-sidenav {
+  z-index: 45;
+  padding-top: 64px;
+}
+
+
+.sidenav-menu {
+ md-list-item {
+   a {
+     margin: 0;
+   }
+ }
+}
+
+@import 'match-form';
+@import 'stats';
+@import 'match-list';
+@import 'match-detail';
