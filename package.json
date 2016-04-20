@@ -4,8 +4,10 @@
   "description": "Foosball Scoreboard",
   "author": "Alexandre Clément",
   "scripts": {
-    "start": "gulp",
     "test": "karma start karma.conf.js"
+  },
+  "engines": {
+    "node": "0.12.2"
   },
   "private": true,
   "devDependencies": {
