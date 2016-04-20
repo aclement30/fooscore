@@ -69,34 +69,38 @@ module.exports = function(PlayerScore) {
                         percentages: []
                     };
 
+                    var score, i, player;
+
                     // Loop through each player daily score
-                    for (var player in dailyScore) {
-                        if (dailyScore.hasOwnProperty(player)) {
-                            var score = dailyScore[player];
+                    var dailyScoreKeys = Object.keys(dailyScore);
+                    for (i = 0; i < dailyScoreKeys.length; i++) {
+                        player = dailyScoreKeys[i];
+                        score = dailyScore[player];
 
-                            if (!incrementalScores[player]) {
-                                incrementalScores[player] = {
-                                    played: 0,
-                                    won: 0
-                                };
-                            }
-
-                            // Add current daily score to incremented scores
-                            incrementalScores[player].played += score.played;
-                            incrementalScores[player].won += score.won;
+                        if (!incrementalScores[player]) {
+                            incrementalScores[player] = {
+                                played: 0,
+                                won: 0
+                            };
                         }
+
+                        // Add current daily score to incremented scores
+                        incrementalScores[player].played += score.played;
+                        incrementalScores[player].won += score.won;
                     }
 
                     // Loop through each player incremental score
-                    for (var player in incrementalScores) {
-                        if (incrementalScores.hasOwnProperty(player)) {
-                            // Calculate daily winning percentage for player from incremented scores (including current score)
-                            dayPercentages.percentages.push({
-                                player: player,
-                                winPercent: Math.round(incrementalScores[player].won / incrementalScores[player].played * 1000) / 1000,
-                                played: incrementalScores[player].played
-                            });
-                        }
+                    var incrementalScoresKeys = Object.keys(incrementalScores);
+                    for (i = 0; i < incrementalScoresKeys.length; i++) {
+                        player = incrementalScoresKeys[i];
+                        score = incrementalScores[incrementalScoresKeys[i]];
+
+                        // Calculate daily winning percentage for player from incremented scores (including current score)
+                        dayPercentages.percentages.push({
+                            player: player,
+                            winPercent: Math.round((score.won / score.played) * 1000) / 1000,
+                            played: score.played
+                        });
                     }
 
                     taskCallback(false, dayPercentages);
