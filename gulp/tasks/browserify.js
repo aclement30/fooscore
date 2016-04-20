@@ -13,7 +13,6 @@ var gulp         = require('gulp');
 var handleErrors = require('../util/handleErrors');
 var source       = require('vinyl-source-stream');
 var config       = require('../config').browserify;
-var babelify     = require('babelify');
 
 gulp.task('browserify', function(callback) {
 
@@ -47,9 +46,7 @@ gulp.task('browserify', function(callback) {
         .pipe(gulp.dest(bundleConfig.dest))
         .on('end', reportFinished);
     };
-
-    //bundler.transform(babelify.configure());
-
+    
     if (global.isWatching) {
       // Wrap with watchify and rebundle on changes
       bundler = watchify(bundler);
