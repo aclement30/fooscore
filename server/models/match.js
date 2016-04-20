@@ -84,7 +84,7 @@ var schema = new mongoose.Schema({
 });
 
 schema.method('getWinningTeam', function () {
-    if (this.team1.points > this.team1.points) {
+    if (this.team1.points > this.team2.points) {
         return this.team1;
     } else {
         return this.team2;
