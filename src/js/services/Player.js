@@ -8,7 +8,7 @@
         var players = {
             "Alexandre": {color: '#304ffe'},
             "Cédric": {color: '#aa00ff'},
-            "Eugénie": {color: '#d50000'},
+            "Vincent": {color: '#d50000'},
             "François": {color: '#0091ea'},
             "Mathieu": {color: '#00c853'},
             "Stéphane": {color: '#aeea00'},
