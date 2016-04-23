@@ -1,6 +1,7 @@
 require('angular');
 require('angular-resource');
 require('angular-messages');
+require('angular-sanitize');
 require('angular-animate');
 require('angular-aria');
 require('angular-material');

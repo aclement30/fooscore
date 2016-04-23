@@ -46,6 +46,7 @@
     "angular-messages": "^1.5.3",
     "angular-moment": "^0.10.3",
     "angular-resource": "^1.5.2",
+    "angular-sanitize": "^1.5.5",
     "angular-ui-router": "^0.2.18",
     "async": "^1.5.2",
     "body-parser": "^1.15.0",

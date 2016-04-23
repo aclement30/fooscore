@@ -40,6 +40,13 @@
                 // Not logged in
                 .error(function(data, status, headers, config) {
                     AuthService.authenticated = false;
+                    AuthService.user = null;
+
+                    if (localStorageService.isSupported) {
+                        localStorageService.remove('user');
+                    }
+
+                    if (typeof(callback) === typeof(Function)) callback();
 
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 

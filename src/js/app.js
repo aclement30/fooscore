@@ -9,6 +9,7 @@ angular.module('scoreApp', [
         'ngMaterial',
         'ngResource',
         'ngMessages',
+        'ngSanitize',
         'angularMoment',
         'md.data.table',
         'chart.js',

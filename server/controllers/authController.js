@@ -6,12 +6,26 @@ function init(app, passport) {
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
     // Callback after Google authenticates user
-    app.get('/auth/google/callback',
-        passport.authenticate('google', {
-            successRedirect : '/',
-            failureRedirect : '/?oauth=error'
-        })
-    );
+    app.get('/auth/google/callback', function(req, res, next) {
+        passport.authenticate('google', function(error, user, info) {
+            if (error) {
+                return res.redirect('/?error=' + error + '#/login');
+            }
+
+            if (!user) {
+                return res.redirect('/#/login');
+            }
+
+            req.logIn(user, function(err) {
+                if (err) {
+                    return res.redirect('/?error=' + err + '#/login');
+                }
+
+                return res.redirect('/');
+            });
+
+        })(req, res, next);
+    });
 
     // Connected user info page
     app.get('/api/user', requireAuth, function (req, res) {
