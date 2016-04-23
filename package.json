@@ -4,6 +4,7 @@
   "description": "Foosball Scoreboard",
   "author": "Alexandre Clément",
   "scripts": {
+    "postinstall": "gulp build",
     "start": "node server",
     "test": "karma start karma.conf.js"
   },
