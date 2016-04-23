@@ -3,7 +3,7 @@ var server = {
         port: process.env.PORT || 3000
     },
 
-    db: process.env.MONGODB_URL,
+    db: process.env.MONGODB_URI,
 
     googleOAuth: {
         clientID: process.env.GOOGLE_CLIENT_ID,
