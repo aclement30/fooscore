@@ -13,12 +13,12 @@
             <div class="match" layout="row" layout-align="center stretch">
                 <div class="team" flex="40">
                     <div class="player">
-                        <span class="md-subhead">{{ ctrl.match.team1.players[0] }}</span>
+                        <span class="md-subhead">{{ ctrl.playerNames[ctrl.match.team1.players[0]] }}</span>
                         <span class="md-caption">{{ ctrl.match.team1.players[1] ? 'Attaquant' : 'Joueur 1' }}</span>
                     </div>
 
                     <div class="player" ng-if="ctrl.match.team1.players[1]">
-                        <span class="md-subhead">{{ ctrl.match.team1.players[1] }}</span>
+                        <span class="md-subhead">{{ ctrl.playerNames[ctrl.match.team1.players[1]] }}</span>
                         <span class="md-caption">Défenseur</span>
                     </div>
                 </div>
@@ -27,12 +27,12 @@
                 </div>
                 <div class="team" flex="40">
                     <div class="player">
-                        <span class="md-subhead">{{ ctrl.match.team2.players[0] }}</span>
+                        <span class="md-subhead">{{ ctrl.playerNames[ctrl.match.team2.players[0]] }}</span>
                         <span class="md-caption">{{ ctrl.match.team2.players[1] ? 'Attaquant' : 'Joueur 2' }}</span>
                     </div>
 
                     <div class="player" ng-if="ctrl.match.team2.players[1]">
-                        <span class="md-subhead">{{ ctrl.match.team2.players[1] }}</span>
+                        <span class="md-subhead">{{ ctrl.playerNames[ctrl.match.team2.players[1]] }}</span>
                         <span class="md-caption">Défenseur</span>
                     </div>
                 </div>

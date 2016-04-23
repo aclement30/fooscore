@@ -46,7 +46,7 @@
                     <tbody md-body>
                     <tr md-row ng-repeat="playerData in periodStats.leaderboard | orderBy:'winPercent':true">
                         <td md-cell><span class="player-ranking" ng-style="{'background-color': ctrl.playerColors[playerData.player]}">{{$index + 1}}</span></td>
-                        <td md-cell class="md-title">{{playerData.player}}</td>
+                        <td md-cell class="md-title">{{ctrl.playerNames[playerData.player]}}</td>
                         <td md-cell>{{playerData.played}}</td>
                         <td md-cell>{{playerData.winPercent}} %</td>
                     </tr>

@@ -1,9 +1,9 @@
 var request = require("request"),
     mongoose = require('mongoose'),
-    config = require('../../server/config')['test'],
+    config = require('../../config/server'),
     moment = require('moment');
 
-var baseUrl = "http://localhost:3000";
+var baseUrl = "http://localhost:5000";
 
 var firstMatchId,
     testMatchId;

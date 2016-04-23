@@ -4,10 +4,11 @@
         .module('scoreApp.controllers')
         .controller('StatsController', StatsController);
 
-    function StatsController (Player, Statistic, moment, PERIODS){
+    function StatsController (PlayerManager, Statistic, moment, PERIODS){
         var self = this;
 
-        self.playerColors = Player.colors;
+        self.playerColors = PlayerManager.colors;
+        self.playerNames = PlayerManager.names;
         self.periods = [
             {value: PERIODS.WEEK, name: '7 jours'},
             {value: PERIODS.TWOWEEK, name: '14 jours'},
@@ -97,8 +98,12 @@
         function createChartData(playerPercentages) {
             var series = createChartSeries(playerPercentages);
 
+            var getPlayerName = function(id) {
+                return self.playerNames[id];
+            };
+
             return {
-                series: Object.keys(series),
+                series: Object.keys(series).map(getPlayerName),
                 data: extractSeriesData(series),
                 colors: getColorsForSeries(series),
                 labels: createLabelsForInterval(_dateRange.startDate, _dateRange.endDate)
@@ -108,7 +113,7 @@
         function extractSeriesData(series) {
             var data = [];
 
-            angular.forEach(series, function (serie, playerName) {
+            angular.forEach(series, function (serie) {
                 data.push(serie);
             });
 

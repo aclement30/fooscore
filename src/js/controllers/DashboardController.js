@@ -4,12 +4,13 @@
         .module('scoreApp.controllers')
         .controller('DashboardController', DashboardController);
 
-    function DashboardController (Match, $mdMedia, $mdDialog, $scope) {
+    function DashboardController (Match, $mdMedia, $mdDialog, $scope, PlayerManager) {
         var self = this;
 
         self.matches = {};
         self.loadingPromise = {};
         self.totalCount = 0;
+        self.playerNames = PlayerManager.names;
         self.getMatches = getMatches;
         self.showMatchDetail = showMatchDetail;
         self.fullscreenModal = $mdMedia('xs');

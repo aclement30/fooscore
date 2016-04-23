@@ -4,6 +4,7 @@
   "description": "Foosball Scoreboard",
   "author": "Alexandre Clément",
   "scripts": {
+    "start": "node server",
     "test": "karma start karma.conf.js"
   },
   "engines": {
@@ -39,6 +40,7 @@
   "dependencies": {
     "angular": "^1.5.2",
     "angular-chart.js": "^0.9.0",
+    "angular-local-storage": "^0.2.7",
     "angular-material": "^1.0.6",
     "angular-material-data-table": "^0.10.2",
     "angular-messages": "^1.5.3",
@@ -50,12 +52,19 @@
     "chart.js": "^2.0.0",
     "csv-parse": "^1.0.2",
     "express": "~4.9.7",
+    "express-session": "^1.13.0",
     "extend": "^3.0.0",
     "moment": "^2.12.0",
     "mongoose": "^4.4.10",
+    "mongoose-id-validator": "^0.3.0",
     "n3-charts": "^2.0.25",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
     "promise": "^7.1.1",
     "request": "^2.70.0",
-    "sort-keys": "^1.1.1"
+    "slug": "^0.9.1",
+    "sort-keys": "^1.1.1",
+    "yamljs": "^0.2.7"
   }
 }

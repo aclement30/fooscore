@@ -1,14 +1,48 @@
-var fs = require('fs'),
+var async = require('async'),
+    slug = require('slug'),
+    fs = require('fs'),
     parse = require('csv-parse'),
     mongoose = require('mongoose'),
+    config = require('./config/server'),
     PlayerScore = require('./server/models/playerScore'),
-    Match = require('./server/models/match');
+    Match = require('./server/models/match'),
+    Player = require('./server/models/player');
+
+// -------------------------------------------------------------------------
+// DB SETUP
+// -------------------------------------------------------------------------
 
 // Connect to Mongo database
-mongoose.connect('mongodb://localhost/babyfoot-scores');
+mongoose.connect(config.db);
 
-PlayerScore.find({}).remove().exec();
-Match.find({}).remove().exec();
+// -------------------------------------------------------------------------
+// PLAYERS
+// -------------------------------------------------------------------------
+
+var players = {};
+
+var getPlayerAlias = function(name) {
+    return slug(name).toLowerCase();
+};
+
+var getPlayerId = function(name) {
+    var alias = getPlayerAlias(name);
+
+    if (players[alias]) {
+        return players[alias];
+    } else {
+        var newPlayer = Player({alias: alias, name: name});
+        newPlayer.save();
+
+        players[alias] = newPlayer._id;
+
+        return newPlayer._id;
+    }
+};
+
+// -------------------------------------------------------------------------
+// CSV PARSER
+// -------------------------------------------------------------------------
 
 var parser = parse({delimiter: ','}, function(err, rows){
     var rowIndex = 0;
@@ -24,21 +58,21 @@ var parser = parse({delimiter: ','}, function(err, rows){
             }
 
             var team1 = {
-                players: [row[1]],
+                players: [getPlayerId(row[1])],
                 points: parseInt(row[3])
             };
 
             if (row[2]) {
-                team1.players.push(row[2]);
+                team1.players.push(getPlayerId(row[2]));
             }
 
             var team2 = {
-                players: [row[5]],
+                players: [getPlayerId(row[5])],
                 points: parseInt(row[4])
             };
 
             if (row[6]) {
-                team2.players.push(row[6]);
+                team2.players.push(getPlayerId(row[6]));
             }
 
             var balls;
@@ -83,4 +117,35 @@ var parser = parse({delimiter: ','}, function(err, rows){
     }
 });
 
-fs.createReadStream(__dirname+'/import-data/scores.csv').pipe(parser);
+// -------------------------------------------------------------------------
+
+async.series([
+    // Retrieve list of players
+    function(callback){
+        Player.find({isDeleted: false}).exec(function (err, objects) {
+            objects.forEach(function (object) {
+                players[object.alias] = object._id;
+            });
+
+            callback(err, players);
+        });
+    },
+    // Clear saved player scores
+    function(callback){
+        PlayerScore.find({}).remove().exec(callback);
+    },
+    // Clear saved matches
+    function(callback){
+        Match.find({}).remove().exec(callback);
+    }
+], function(error, data) {
+    if (!error) {
+        var readStream = fs.createReadStream(__dirname+'/import-data/scores.csv');
+
+        // This will wait until we know the readable stream is actually valid before piping
+        readStream.on('open', function () {
+            // This just pipes the read stream to the response object (which goes to the client)
+            readStream.pipe(parser);
+        });
+    }
+});

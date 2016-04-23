@@ -18,15 +18,15 @@
                 <tr md-row ng-repeat="match in ctrl.matches" ng-click="ctrl.showMatchDetail(match._id, $event)">
                     <td md-cell>{{ match.date | amDateFormat: 'DD.MM.YYYY' }}</td>
                     <td md-cell ng-class="{winner: match.team1.points > match.team2.points}">
-                        <span>{{ match.team1.players[0] }}</span>
+                        <span>{{ ctrl.playerNames[match.team1.players[0]] }}</span>
                         <span ng-if="match.team1.players[1]">&nbsp;&nbsp;+&nbsp;
-                        <span>{{ match.team1.players[1] }}</span></span>
+                        <span>{{ ctrl.playerNames[match.team1.players[1]] }}</span></span>
                     </td>
                     <td md-cell class="md-title">{{ match.team1.points }} - {{ match.team2.points }}</td>
                     <td md-cell ng-class="{winner: match.team2.points > match.team1.points}">
-                        <span>{{ match.team2.players[0] }}</span>
+                        <span>{{ ctrl.playerNames[match.team2.players[0]] }}</span>
                         <span ng-if="match.team2.players[1]">&nbsp;&nbsp;+&nbsp;
-                        <span>{{ match.team2.players[1] }}</span></span>
+                        <span>{{ ctrl.playerNames[match.team2.players[1]] }}</span></span>
                     </td>
                 </tr>
                 </tbody>

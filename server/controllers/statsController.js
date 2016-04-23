@@ -1,10 +1,11 @@
 var moment = require('moment'),
     async = require('async'),
     PlayerScore = require('../models/playerScore'),
-    statsCalculator = require("../services/statsCalculator")(PlayerScore);
+    statsCalculator = require("../services/statsCalculator")(PlayerScore),
+    requireAuth = require('../services/auth').check;
 
 function init(app) {
-    app.get('/api/winningPercentages', function (req, res) {
+    app.get('/api/winningPercentages', requireAuth, function (req, res) {
         var startDate = moment(req.query.startDate),
             endDate = moment(req.query.endDate);
 

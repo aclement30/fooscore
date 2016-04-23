@@ -1,13 +1,18 @@
-var PlayerScore = require('../../server/models/playerScore'),
+var Match = require('../../server/models/match'),
+    Player = require('../../server/models/player'),
+    PlayerScore = require('../../server/models/playerScore'),
     moment = require('moment'),
     extend = require('extend');
 
 describe("PlayerScore", function() {
 
+    var match = new Match();
+    var player = new Player({alias: 'P1', name: 'P1'});
+
     var defaultData = {
-        matchId: 'TEST',
+        matchId: match._id,
         date: moment(new Date()).subtract(7, 'days').toDate(),
-        player: 'TestPlayer',
+        player: player._id,
         points: 10,
         win: true,
         solo: true
@@ -96,15 +101,15 @@ describe("PlayerScore", function() {
             date: moment(new Date()).subtract(7, 'days').toDate(),
             team1: {
                 players: [
-                    'P1',
-                    'P2'
+                    new Player({alias: 'P1', name: 'P1'})._id,
+                    new Player({alias: 'P2', name: 'P2'})._id
                 ],
                 points: 5
             },
             team2: {
                 players: [
-                    'P3',
-                    'P4'
+                    new Player({alias: 'P3', name: 'P3'})._id,
+                    new Player({alias: 'P4', name: 'P4'})._id
                 ],
                 points: 10
             },
@@ -126,6 +131,6 @@ describe("PlayerScore", function() {
         expect(playerScores[0].date).toEqual(match.date);
         expect(playerScores[0].win).toBeFalsy();
         expect(playerScores[0].solo).toBeFalsy();
-        expect(playerScores[0].matchId).toEqual(String(match._id));
+        expect(playerScores[0].matchId).toEqual(match._id);
     });
 });

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="css/angular-material.min.css">
     <link rel="stylesheet" href="css/angular-chart.min.css">
     <link rel="stylesheet" href="css/md-data-table.min.css">
+
     <link rel="stylesheet" href="css/global.min.css">
 
-    <!--<link rel="stylesheet" type="text/css" href="main.css">-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script src="js/vendors.js"></script>
@@ -26,7 +26,7 @@
 </head>
 
 <body data-ng-app="scoreApp" data-ng-controller="AppController as appCtrl">
-    <md-toolbar class="md-primary navbar">
+    <md-toolbar class="md-primary navbar" ng-show="currentUser" ng-cloak>
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-click="appCtrl.toggleMenu()">
                 <md-icon>menu</md-icon>
@@ -34,27 +34,45 @@
             <h2>
                 <span>Fooscore</span>
             </h2>
-            <span flex=""></span>
-            <md-button class="md-icon-button" aria-label="Ajouter" href="#/add" ng-show="appCtrl.ui.addButton">
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Ajouter" ui-sref="add" ng-show="appCtrl.ui.addButton">
                 <md-icon>add</md-icon>
             </md-button>
         </div>
     </md-toolbar>
 
-    <section layout="row" flex>
+    <section layout="column" flex>
         <md-sidenav
                 class="sidenav-menu"
                 md-component-id="left"
-                md-whiteframe="4">
+                md-whiteframe="4"
+                ng-cloak>
             <md-content flex>
+                <div class="user-profile">
+                    <div class="user-thumbnail">
+                        <md-icon>account_circle</md-icon>
+                    </div>
+
+                    <div class="user-info">
+                        <p class="md-subhead name">{{currentUser.name}}</p>
+                        <p class="md-caption email">{{currentUser.email}}</p>
+                    </div>
+                </div>
                 <md-list>
-                    <md-list-item ui-sref="dashboard" ng-click="appCtrl.closeMenu()">
+                    <md-list-item ui-sref="dashboard" ng-class="{active: appCtrl.ui.section == 'dashboard'}" ng-click="appCtrl.closeMenu()">
                         <md-icon>list</md-icon>
                         <p>Matchs</p>
                     </md-list-item>
-                    <md-list-item ui-sref="stats" ng-click="appCtrl.closeMenu()">
+                    <md-list-item ui-sref="stats" ng-class="{active: appCtrl.ui.section == 'stats'}" ng-click="appCtrl.closeMenu()">
                         <md-icon>insert_chart</md-icon>
                         <p>Statistiques</p>
+                    </md-list-item>
+                </md-list>
+
+                <md-list class="profile-menu">
+                    <md-list-item ng-click="appCtrl.closeMenu(); appCtrl.logout()">
+                        <md-icon>power_settings_new</md-icon>
+                        <p>Déconnexion</p>
                     </md-list-item>
                 </md-list>
             </md-content>

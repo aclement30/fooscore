@@ -1,17 +1,20 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    idValidator = require('mongoose-id-validator');
 
 var schema = new mongoose.Schema({
     id: String,
     matchId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Match',
         required: true
     },
     date: {             // Match date
         type: Date,
         required: true
     },
-    player: {           // Player name
-        type: String,
+    player: {           // Player ID
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player',
         required: true
     },
     points: {           // Scored points for team
@@ -28,6 +31,7 @@ var schema = new mongoose.Schema({
     },
     isDeleted: { type: Boolean, default: false }
 });
+schema.plugin(idValidator);
 
 schema.static('createFromMatch', function(match) {
 

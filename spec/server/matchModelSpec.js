@@ -1,22 +1,30 @@
 var Match = require('../../server/models/match'),
+    Player = require('../../server/models/player'),
     moment = require('moment'),
     extend = require('extend');
 
 describe("Match", function() {
 
+    var players = [
+        new Player({alias: 'P1', name: 'P1'}),
+        new Player({alias: 'P2', name: 'P2'}),
+        new Player({alias: 'P3', name: 'P3'}),
+        new Player({alias: 'P4', name: 'P4'})
+    ];
+
     var defaultData = {
         date: moment(new Date()).subtract(7, 'days').toDate(),
         team1: {
             players: [
-                'P1',
-                'P2'
+                players[0]._id,
+                players[1]._id
             ],
             points: 5
         },
         team2: {
             players: [
-                'P3',
-                'P4'
+                players[2]._id,
+                players[3]._id
             ],
             points: 10
         },

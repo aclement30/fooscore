@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    idValidator = require('mongoose-id-validator');
 
 var playerCountValidator = function (value) {
     if (!this.team1 || !this.team2) {
@@ -46,7 +47,10 @@ var playerUniqueValidator = function (value) {
 
 var teamSchema = new mongoose.Schema({
     players: {
-        type: Array,
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
         required: true
     },
     points: {
@@ -55,6 +59,7 @@ var teamSchema = new mongoose.Schema({
         min: [0, 'Invalid score']
     }
 });
+teamSchema.plugin(idValidator);
 
 teamSchema.path('players').validate(playerCountValidator, 'Mismatching number of player in opponent team');
 teamSchema.path('players').validate(playerUniqueValidator, 'Duplicate player in opponent team');

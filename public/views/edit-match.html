@@ -11,8 +11,8 @@
                         flex="45"
                         md-selected-item="ctrl.match.team1.players[0]"
                         md-selected-item-change="ctrl.selectPlayer(ctrl.match.team1, 0, item)"
-                        md-items="item in ctrl.querySearch(ctrl.player1SearchText, ctrl.match.team1.players[0])"
-                        md-item-text="item"
+                        md-items="item in ctrl.querySearch(ctrl.player1SearchText, ctrl.match.team1.players[0]) | orderBy:'name'"
+                        md-item-text="item.name"
                         md-min-length="0"
                         md-no-cache="true"
                         md-floating-label="Attaquant"
@@ -20,7 +20,7 @@
                         md-search-text="ctrl.player1SearchText"
                         md-input-name="team1Player1">
                     <md-item-template>
-                        <span md-highlight-text="ctrl.player1SearchText" md-highlight-flags="^i">{{item}}</span>
+                        <span md-highlight-text="ctrl.player1SearchText" md-highlight-flags="^i">{{item.name}}</span>
                     </md-item-template>
                     <div ng-messages="ctrl.matchForm.team1Player1.$error" ng-hide="ctrl.matchForm.team1Player1.$untouched && !ctrl.matchForm.$submitted" ng-cloak>
                         <div ng-message="required">Champ requis</div>
@@ -32,15 +32,15 @@
                     flex="45" flex-offset="5"
                     md-selected-item="ctrl.match.team1.players[1]"
                     md-selected-item-change="ctrl.selectPlayer(ctrl.match.team1, 1, item)"
-                    md-items="item in ctrl.querySearch(ctrl.player2SearchText, ctrl.match.team1.players[1])"
-                    md-item-text="item"
+                    md-items="item in ctrl.querySearch(ctrl.player2SearchText, ctrl.match.team1.players[1]) | orderBy:'name'"
+                    md-item-text="item.name"
                     md-min-length="0"
                     md-floating-label="Défenseur"
                     placeholder="Défenseur"
                     md-search-text="ctrl.player2SearchText"
                     md-input-name="team1Player2">
                     <md-item-template>
-                        <span md-highlight-text="ctrl.player2SearchText" md-highlight-flags="^i">{{item}}</span>
+                        <span md-highlight-text="ctrl.player2SearchText" md-highlight-flags="^i">{{item.name}}</span>
                     </md-item-template>
                     <div ng-messages="ctrl.matchForm.team1Player2.$error" ng-cloak>
                         <div ng-message="required">Champ requis</div>
@@ -70,15 +70,15 @@
                          flex="45"
                          md-selected-item="ctrl.match.team2.players[0]"
                          md-selected-item-change="ctrl.selectPlayer(ctrl.match.team2, 0, item)"
-                         md-items="item in ctrl.querySearch(ctrl.player3SearchText, ctrl.match.team2.players[0])"
-                         md-item-text="item"
+                         md-items="item in ctrl.querySearch(ctrl.player3SearchText, ctrl.match.team2.players[0]) | orderBy:'name'"
+                         md-item-text="item.name"
                          md-min-length="0"
                          md-floating-label="Attaquant"
                          placeholder="Attaquant"
                          md-search-text="ctrl.player3SearchText"
                          md-input-name="team2Player1">
                     <md-item-template>
-                        <span md-highlight-text="ctrl.player3SearchText" md-highlight-flags="^i">{{item}}</span>
+                        <span md-highlight-text="ctrl.player3SearchText" md-highlight-flags="^i">{{item.name}}</span>
                     </md-item-template>
                     <div ng-messages="ctrl.matchForm.team2Player1.$error" ng-hide="ctrl.matchForm.team2Player1.$untouched && !ctrl.matchForm.$submitted" ng-cloak>
                         <div ng-message="required">Champ requis</div>
@@ -90,15 +90,15 @@
                          flex="45" flex-offset="5"
                          md-selected-item="ctrl.match.team2.players[1]"
                          md-selected-item-change="ctrl.selectPlayer(ctrl.match.team2, 1, item)"
-                         md-items="item in ctrl.querySearch(ctrl.player4SearchText, ctrl.match.team2.players[1])"
-                         md-item-text="item"
+                         md-items="item in ctrl.querySearch(ctrl.player4SearchText, ctrl.match.team2.players[1]) | orderBy:'name'"
+                         md-item-text="item.name"
                          md-min-length="0"
                          md-floating-label="Défenseur"
                          placeholder="Défenseur"
                          md-search-text="ctrl.player4SearchText"
                          md-input-name="team2Player2">
                     <md-item-template>
-                        <span md-highlight-text="ctrl.player4SearchText" md-highlight-flags="^i">{{item}}</span>
+                        <span md-highlight-text="ctrl.player4SearchText" md-highlight-flags="^i">{{item.name}}</span>
                     </md-item-template>
                     <div ng-messages="ctrl.matchForm.team2Player2.$error" ng-cloak>
                         <div ng-message="required">Champ requis</div>

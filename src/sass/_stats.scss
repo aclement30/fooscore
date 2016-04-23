@@ -7,6 +7,13 @@
     md-table-container {
       border-left: 1px solid lightgray;
     }
+
+    .empty-data {
+      text-align: center;
+      padding: 30px;
+      color: gray;
+      font-size: smaller;
+    }
   }
 
   .player-ranking {

@@ -1,10 +1,10 @@
 var moment = require('moment'),
     mongoose = require('mongoose'),
-    config = require('../../server/config')['test'],
+    config = require('../../config/server'),
     PlayerScore = require('../../server/models/playerScore'),
     statsCalculator = require("../../server/services/statsCalculator")(PlayerScore);
 
-mongoose.connect(config.db);
+//mongoose.connect(config.db);
 
 describe("StatsCalculator", function() {
 
@@ -310,4 +310,4 @@ describe("StatsCalculator", function() {
     });
 });
 
-mongoose.disconnect();
+//mongoose.disconnect();

@@ -7,11 +7,14 @@ body {
   height: auto;
 }
 
+
 .navbar {
   z-index: 50;
 }
 
 .content-wrapper {
+  height: 100%;
+
   .page-view {
     max-width: 1170px;
     margin: 0 auto;
@@ -42,18 +45,61 @@ md-backdrop.md-sidenav-backdrop {
 
 md-sidenav {
   z-index: 45;
-  padding-top: 64px;
+  padding-top: 28px;
+
+  .user-profile {
+    background: url("../img/profile-background.jpg");
+    background-size: cover;
+
+    .user-thumbnail {
+      margin: 20px;
+      padding-top: 40px;
+
+      md-icon {
+        background-color: white;
+        font-size: 50px;
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+      }
+    }
+
+    .user-info {
+      padding: 15px 20px;
+      background-color: rgba(0,0,0, 0.4);
+      color: white;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .profile-menu {
+    border-top: 1px solid #ddd;
+  }
 }
 
 
 .sidenav-menu {
+  md-list {
+    padding: 0;
+  }
+
  md-list-item {
    a {
      margin: 0;
    }
+
+   &.active {
+     a {
+       background-color: rgba(158,158,158,0.2);
+     }
+   }
  }
 }
 
+@import 'login';
 @import 'match-form';
 @import 'stats';
 @import 'match-list';

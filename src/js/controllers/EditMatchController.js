@@ -4,10 +4,14 @@
         .module('scoreApp.controllers')
         .controller('EditMatchController', EditMatchController);
 
-    function EditMatchController (Match, Player, $mdToast, $mdDialog, $stateParams, $state){
+    function EditMatchController (Match, PlayerManager, $mdToast, $mdDialog, $stateParams, $state){
         var self = this;
 
-        self.players = Player.names;
+        self.players = [];
+        angular.forEach(PlayerManager.players, function(player) {
+            self.players.push(player);
+        });
+
         self.match = {
             date: new Date(),
             team1: {
@@ -37,6 +41,8 @@
         if ($stateParams.matchId) {
             Match.get({id: $stateParams.matchId}, function(match) {
                 match.date = new Date(match.date);
+                match.team1.players = match.team1.players.map(function(playerId){ return PlayerManager.players[playerId] });
+                match.team2.players = match.team2.players.map(function(playerId){ return PlayerManager.players[playerId] });
                 self.match = match;
             });
 
@@ -75,7 +81,7 @@
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(player) {
-                return (angular.lowercase(player).indexOf(lowercaseQuery) === 0);
+                return (angular.lowercase(player.name).indexOf(lowercaseQuery) === 0);
             };
         }
 
@@ -144,15 +150,21 @@
             if (self.editMode) {
                 match = self.match;
 
+                match.team1.players = match.team1.players.map(function(player){ return player._id });
+                match.team2.players = match.team2.players.map(function(player){ return player._id });
+
                 Match.update(match, successCallback, errorCallback);
             } else {
-                var match = new Match();
+                match = new Match();
 
                 match.date = self.match.date;
                 match.team1 = self.match.team1;
                 match.team2 = self.match.team2;
                 match.balls = self.match.balls;
                 match.comments = self.match.comments;
+
+                match.team1.players = match.team1.players.map(function(player){ return player._id });
+                match.team2.players = match.team2.players.map(function(player){ return player._id });
 
                 Match.save(match, successCallback, errorCallback);
             }

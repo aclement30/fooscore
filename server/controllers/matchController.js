@@ -1,8 +1,9 @@
 var Match = require('../models/match'),
-    errorHandler = require('../errorHandler');
+    errorHandler = require('../errorHandler'),
+    requireAuth = require('../services/auth').check;
 
 function init(app) {
-    app.get('/api/matches/:matchId', function (req, res) {
+    app.get('/api/matches/:matchId', requireAuth, function (req, res) {
         var matchId = req.params.matchId;
 
         Match.findById(matchId).exec(function (err, object) {
@@ -10,7 +11,7 @@ function init(app) {
         });
     });
 
-    app.get('/api/matches', function (req, res) {
+    app.get('/api/matches', requireAuth, function (req, res) {
         var limit = Number(req.query.limit) || 100;
         if (limit < 1 || limit > 500) {
             limit = 100;
@@ -38,7 +39,7 @@ function init(app) {
         });
     });
 
-    app.post('/api/matches', function (req, res) {
+    app.post('/api/matches', requireAuth, function (req, res) {
         var data = req.body;
 
         // Construct a new Match object
@@ -62,7 +63,7 @@ function init(app) {
         });
     });
 
-    app.put('/api/matches/:matchId', function (req, res) {
+    app.put('/api/matches/:matchId', requireAuth, function (req, res) {
         var matchId = req.params.matchId;
         var data = req.body;
 
@@ -95,7 +96,7 @@ function init(app) {
         });
     });
 
-    app.delete('/api/matches/:matchId', function (req, res) {
+    app.delete('/api/matches/:matchId', requireAuth, function (req, res) {
         var matchId = req.params.matchId;
 
         Match.update({_id: matchId}, {$set: {isDeleted: true}}, function (err) {
