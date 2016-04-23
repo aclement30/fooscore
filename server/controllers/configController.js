@@ -1,4 +1,5 @@
 var config = require('../../config/server'),
+    errorHandler = require('../errorHandler'),
     Group = require('../models/group');
 
 function init(app) {
