@@ -14,7 +14,6 @@
   "private": true,
   "devDependencies": {
     "angular-mocks": "^1.5.3",
-    "browser-sync": "^2.11.0",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
@@ -55,6 +54,7 @@
     "sort-keys": "^1.1.1",
     "yamljs": "^0.2.7",
 
+    "browser-sync": "^2.11.0",
     "browserify": "^13.0.0",
     "gulp": "^3.8.10",
     "gulp-minify-css": "^1.2.4",
