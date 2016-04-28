@@ -148,20 +148,20 @@
             var match;
 
             if (self.editMode) {
-                match = self.match;
+                match = angular.extend({}, self.match);
+
+                match.team1 = angular.extend({}, match.team1);
+                match.team2 = angular.extend({}, match.team2);
 
                 match.team1.players = match.team1.players.map(function(player){ return player._id });
                 match.team2.players = match.team2.players.map(function(player){ return player._id });
 
                 Match.update(match, successCallback, errorCallback);
             } else {
-                match = new Match();
+                match = new Match(angular.extend({}, self.match));
 
-                match.date = self.match.date;
-                match.team1 = self.match.team1;
-                match.team2 = self.match.team2;
-                match.balls = self.match.balls;
-                match.comments = self.match.comments;
+                match.team1 = angular.extend({}, match.team1);
+                match.team2 = angular.extend({}, match.team2);
 
                 match.team1.players = match.team1.players.map(function(player){ return player._id });
                 match.team2.players = match.team2.players.map(function(player){ return player._id });
