@@ -4,6 +4,5 @@ build
 .DS_Store
 src/sass/temp/*
 npm-debug.log
-import-data/*
 .env
 .group.config.yml
