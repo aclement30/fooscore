@@ -80,16 +80,29 @@
         }
 
         function createChartSeries(playerPercentages) {
-            var series = {};
+            var series = {},
+                count = 1;
 
             angular.forEach(playerPercentages, function (dayStats) {
-                angular.forEach(dayStats.percentages, function (playerStats) {
+                angular.forEach(dayStats.percentages, function (playerStats, index) {
                     if (!series[playerStats.player]) {
                         series[playerStats.player] = [];
                     }
 
                     series[playerStats.player].push(Math.round(playerStats.winPercent * 10000) / 100);
                 });
+
+                angular.forEach(PlayerManager.players, function(player, id){
+                    if (!series[id]) {
+                        series[id] = [];
+                    }
+
+                    if (series[id].length < count) {
+                        series[id].push(null);
+                    }
+                });
+
+                count++;
             });
 
             return series;
