@@ -4,6 +4,22 @@
         .module('scoreApp.controllers')
         .controller('EditMatchController', EditMatchController);
 
+    /**
+     * Convert ISOString date to Date object
+     * @param {string} dateString
+     * @returns {Date}
+     */
+    function convertDate(dateString) {
+        var a;
+
+        if (typeof dateString === 'string') {
+            a = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateString);
+            if (a) {
+                return new Date(+a[1], +a[2] - 1, +a[3]);
+            }
+        }
+    }
+
     function EditMatchController (Match, PlayerManager, $mdToast, $mdDialog, $stateParams, $state){
         var self = this;
 
@@ -40,7 +56,7 @@
 
         if ($stateParams.matchId) {
             Match.get({id: $stateParams.matchId}, function(match) {
-                match.date = new Date(match.date);
+                match.date = convertDate(match.date);
                 match.team1.players = match.team1.players.map(function(playerId){ return PlayerManager.players[playerId] });
                 match.team2.players = match.team2.players.map(function(playerId){ return PlayerManager.players[playerId] });
                 self.match = match;

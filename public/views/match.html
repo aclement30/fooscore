@@ -1,7 +1,7 @@
 <md-dialog aria-label="Match" ng-cloak class="match-detail-modal">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Détails du match - {{ ctrl.match.date | amDateFormat:'DD.MM.YYYY' }}</h2>
+            <h2>Détails du match - {{ ctrl.match.date | amUtc | amDateFormat:'DD.MM.YYYY' }}</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="ctrl.close()">
                 <md-icon>close</md-icon>

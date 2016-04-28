@@ -16,7 +16,7 @@
                 </thead>
                 <tbody md-body>
                 <tr md-row ng-repeat="match in ctrl.matches" ng-click="ctrl.showMatchDetail(match._id, $event)">
-                    <td md-cell>{{ match.date | amDateFormat: 'DD.MM.YYYY' }}</td>
+                    <td md-cell>{{ match.date | amUtc | amDateFormat: 'DD.MM.YYYY' }}</td>
                     <td md-cell ng-class="{winner: match.team1.points > match.team2.points}">
                         <span>{{ ctrl.playerNames[match.team1.players[0]] }}</span>
                         <span ng-if="match.team1.players[1]">&nbsp;&nbsp;+&nbsp;
