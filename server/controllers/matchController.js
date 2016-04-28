@@ -3,6 +3,14 @@ var Match = require('../models/match'),
     errorHandler = require('../errorHandler'),
     requireAuth = require('../services/auth').check;
 
+var convertDate = function(dateString) {
+    // Extract date part using Regex
+    var dateParts = dateString.match(/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/);
+
+    // Create blank Date object from date YYYY-MM-DD (prevent timezone issues)
+    return new Date(dateParts[0]);
+};
+
 function init(app) {
     app.get('/api/matches/:matchId', requireAuth, function (req, res) {
         var matchId = req.params.matchId;
@@ -45,7 +53,7 @@ function init(app) {
 
         // Construct a new Match object
         var matchData = {
-            date: data['date'],
+            date: convertDate(data['date']),
             team1: data['team1'],
             team2: data['team2'],
             balls: parseInt(data['balls']),
@@ -91,7 +99,7 @@ function init(app) {
                 return;
             }
 
-            match.date = data['date'];
+            match.date = convertDate(data['date']);
             match.team1 = data['team1'];
             match.team2 = data['team2'];
             match.balls = parseInt(data['balls']);
