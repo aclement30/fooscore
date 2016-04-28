@@ -30,7 +30,7 @@
     "angular-material": "^1.0.6",
     "angular-material-data-table": "^0.10.2",
     "angular-messages": "^1.5.3",
-    "angular-moment": "^0.10.3",
+    "angular-moment": "^1.0.0-beta.6",
     "angular-resource": "^1.5.2",
     "angular-sanitize": "^1.5.5",
     "angular-ui-router": "^0.2.18",
