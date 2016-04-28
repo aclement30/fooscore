@@ -9,7 +9,7 @@
     "test": "karma start karma.conf.js"
   },
   "engines": {
-    "node": "0.12.2"
+    "node": "5.10.1"
   },
   "private": true,
   "devDependencies": {
