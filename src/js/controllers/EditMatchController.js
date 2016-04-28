@@ -169,8 +169,8 @@
                 match.team1 = angular.extend({}, match.team1);
                 match.team2 = angular.extend({}, match.team2);
 
-                match.team1.players = match.team1.players.map(function(player){ return player._id });
-                match.team2.players = match.team2.players.map(function(player){ return player._id });
+                match.team1.players = match.team1.players.map(function(player){ if (player) return player._id; else return null; });
+                match.team2.players = match.team2.players.map(function(player){ if (player) return player._id; else return null; });
 
                 Match.update(match, successCallback, errorCallback);
             } else {
@@ -179,8 +179,8 @@
                 match.team1 = angular.extend({}, match.team1);
                 match.team2 = angular.extend({}, match.team2);
 
-                match.team1.players = match.team1.players.map(function(player){ return player._id });
-                match.team2.players = match.team2.players.map(function(player){ return player._id });
+                match.team1.players = match.team1.players.map(function(player){ if (player) return player._id; else return null; });
+                match.team2.players = match.team2.players.map(function(player){ if (player) return player._id; else return null; });
 
                 Match.save(match, successCallback, errorCallback);
             }
