@@ -20,6 +20,26 @@
         }
     }
 
+    /**
+     * Process team players before submitting to server
+     * @param {Object} originalTeam
+     * @returns {Object}
+     */
+    function processTeam(originalTeam) {
+        var team = angular.extend({}, originalTeam);
+
+        var players = team.players.map(function(player){ if (player) return player._id; });
+
+        team.players = [];
+        players.forEach(function(player){
+            if (player) {
+                team.players.push(player);
+            }
+        });
+
+        return team;
+    }
+
     function EditMatchController (Match, PlayerManager, $mdToast, $mdDialog, $stateParams, $state){
         var self = this;
 
@@ -32,14 +52,12 @@
             date: new Date(),
             team1: {
                 players: [
-                    null,
                     null
                 ],
                 points: null
             },
             team2: {
                 players: [
-                    null,
                     null
                 ],
                 points: null
@@ -166,21 +184,15 @@
             if (self.editMode) {
                 match = angular.extend({}, self.match);
 
-                match.team1 = angular.extend({}, match.team1);
-                match.team2 = angular.extend({}, match.team2);
-
-                match.team1.players = match.team1.players.map(function(player){ if (player) return player._id; else return null; });
-                match.team2.players = match.team2.players.map(function(player){ if (player) return player._id; else return null; });
+                match.team1 = processTeam(match.team1);
+                match.team2 = processTeam(match.team2);
 
                 Match.update(match, successCallback, errorCallback);
             } else {
                 match = new Match(angular.extend({}, self.match));
 
-                match.team1 = angular.extend({}, match.team1);
-                match.team2 = angular.extend({}, match.team2);
-
-                match.team1.players = match.team1.players.map(function(player){ if (player) return player._id; else return null; });
-                match.team2.players = match.team2.players.map(function(player){ if (player) return player._id; else return null; });
+                match.team1 = processTeam(match.team1);
+                match.team2 = processTeam(match.team2);
 
                 Match.save(match, successCallback, errorCallback);
             }
