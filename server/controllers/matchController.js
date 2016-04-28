@@ -68,7 +68,7 @@ function init(app) {
                 // Create player scores for current match
                 PlayerScore.createFromMatch(match);
 
-                res.status(201).send(matchEntry);
+                res.status(201).send(match);
             } else {
                 errorHandler.client(error, res);
             }
