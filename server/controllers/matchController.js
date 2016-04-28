@@ -1,4 +1,5 @@
 var Match = require('../models/match'),
+    PlayerScore = require('../models/playerScore'),
     errorHandler = require('../errorHandler'),
     requireAuth = require('../services/auth').check;
 
@@ -43,7 +44,7 @@ function init(app) {
         var data = req.body;
 
         // Construct a new Match object
-        var match = {
+        var matchData = {
             date: data['date'],
             team1: data['team1'],
             team2: data['team2'],
@@ -52,10 +53,13 @@ function init(app) {
         };
 
         // Create a new model instance with our object
-        var matchEntry = new Match(match);
+        var match = new Match(matchData);
 
-        matchEntry.save(function (error) {
+        match.save(function (error) {
             if (!error) {
+                // Create player scores for current match
+                PlayerScore.createFromMatch(match);
+
                 res.status(201).send(matchEntry);
             } else {
                 errorHandler.client(error, res);
@@ -73,6 +77,13 @@ function init(app) {
             return;
         }
 
+        // Erase existing player scores for this match
+        PlayerScore.remove({'matchId': matchId}, function (err) {
+            if (err) {
+                errorHandler.server(err, res);
+            }
+        });
+
         Match.findById(matchId, function (err, match) {
             if (err) {
                 errorHandler.client("Match not found (" + matchId + ')', res);
@@ -88,6 +99,9 @@ function init(app) {
 
             match.save(function (error) {
                 if (!error) {
+                    // Create player scores for current match
+                    PlayerScore.createFromMatch(match);
+
                     res.send(match);
                 } else {
                     errorHandler.client(error, res);
